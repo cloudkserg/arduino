@@ -1,6 +1,6 @@
 const {Board, Servo, Servos} = require("johnny-five");
 
-class TestBoard {
+module.exports = class TestBoard {
     constructor() {
         this.board = new Board();
     }
@@ -27,6 +27,7 @@ class TestBoard {
             startAt: 0
         });
         this.servos = new Servos([this.leftServo, this.rightServo]);
+        return new Promise(res => res);
         return new Promise(res => this.board.on("ready", () => res));
     }
 
