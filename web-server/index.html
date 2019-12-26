@@ -39,10 +39,13 @@
                                 <div class="text-center">
                                     <h1 class="h4 text-gray-900 mb-4">Engine your claw!</h1>
                                 </div>
-                                <div class="text-center">
+                                <div id="loading" class="text-center">
+                                    <div class="btn btn-block btn-danger">Loading</div>
+                                </div>
+                                <div class="text-center" id="move">
                                     <div class="btn btn-block btn-success">Move</div>
                                 </div>
-                                <div class="text-center">
+                                <div class="text-center" id="back">
                                     <div class="btn btn-block btn-danger">Back</a>
                                 </div>
                             </div>
@@ -58,6 +61,7 @@
 </div>
 
 <!-- Bootstrap core JavaScript-->
+<script src="test-board.js"></script>
 <script src="vendor/jquery/jquery.min.js"></script>
 <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
@@ -67,7 +71,32 @@
 <!-- Custom scripts for all pages-->
 <script src="js/sb-admin-2.min.js"></script>
 <script>
-    //connect to arduino
+    $(document).ready(function () {
+        const $loading = $('#loading');
+        const $move = $('#move');
+        const $back = $('#back');
+        $move.hide();
+        $back.hide();
+        $loading.show();
+        const board = new TestBoard();
+        board.init().then(function () {
+            $move.show();
+            $back.show();
+            $loading.hide();
+        });
+
+        $move.on('click', function () {
+            $move.hide();
+            $back.hide();
+            $loading.show();
+           board.moveTo().then(function () {
+               $move.show();
+               $back.show();
+               $loading.hide();
+           });
+        });
+    });
+
 </script>
 
 </body>
